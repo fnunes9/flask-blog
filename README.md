@@ -34,5 +34,15 @@ You are able to change this project. Maybe we are going to go back to this proje
 
 - Run the image that is already shared:
    - sudo docker run -p 5000:5000 -d gustavoafernandes/prof-gus-flask-docker
+- The most used Docker commands that we're going to use are:
+   - sudo docker image build -t <image-name>
+   - sudo docker image ls
+   - sudo docker container ls
+   - sudo docker run [OPTIONS] <image-name or image-id>
+   - sudo docker stop (start) <image-name or image-id>
+   - sudo docker rm <image-name or image-id>
+   - sudo docker image rm <image-name or image-id>
+
+- Get familiar with Docker. We are going to use it a lot.
 
 That's all folks. :rocket:
