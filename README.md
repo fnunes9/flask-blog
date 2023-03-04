@@ -1,48 +1,75 @@
 # Flask-Blog-Exercise
 
-This page shows a simple Flask project to be containerize.
+Esta página apresenta uma simples aplicação Flask, que deve ser conteinerizada.
 
-## Project's Organization
+## Organização do projeto
 
-* static: contains static files, such as .css styles.
-* templates: contains all templates using Jinja engine. See *https://flask.palletsprojects.com/en/2.2.x/templating/* for more information.
-* app: The API by Flask, a micro web framework. See *https://flask.palletsprojects.com/en/2.2.x/* .
+* static: contém arquivos estáticos, por exemplo, arquivos de estilos .css.
+* templates: contém todos os templates usando a engine Jinja. Veja *https://flask.palletsprojects.com/en/2.2.x/templating/* para mais detalhes.
+* app: A aplicação Flask, um micro web framework. Leia mais em *https://flask.palletsprojects.com/en/2.2.x/* .
 
-## Creating an account at Github
+## Criando uma conta no Github
 
-To start with, you need an account at github. Following this [link](https://github.com/join) you will be able to set an account.
+Para começar, você deve yer uma conta no github. Siga esse [link](https://github.com/join) e você será capaz de criar sua conta.
 
-## Creating a project (Github)
+## Criando um projeto no Git(hub)
 
-Just follow this: https://docs.github.com/en/get-started/quickstart/hello-world . Its important that you complete this tutorial. You'll be able to learn more about Git(hub) and also create your first project. **Pay attention** in terms like *'commit', 'merge', 'branch', 'pull request'*. These are fundamental terms to know Git. Then, go back to the last link and do that tutorial.
+Explore o Git, caso você não esteja familizarizado com controle de versão. Faça esse tutorial *https://docs.github.com/en/get-started/quickstart/hello-world* para aprender mais sobre o Git(hub) ao criar um simples projeto. **Atenção** para termos como *'commit', 'merge', 'branch', 'pull request'*. São termos fundamentais para o conhecimento do Git.
 
-## Cloning a project (Git)
+## (1) Clonando um projeto
 
-You are now using Git to change, via terminal, a project. Please, install Git on your local (or virtual) machine: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git . 
+Certifique que o Git esteja instalado em sua máquina local (virtual) Veja mais em: *https://git-scm.com/book/en/v2/Getting-Started-Installing-Git*. 
 
-* Getting a Git Repository:
+* Acessando um repositório:
 
-You may be wondering how about creating a Git repository. You can do this in command line. For now, you are going to use an existing one. Following this https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository you can see how to create/cloning a repository. You're going to clone this repository. Remember about you credentials. You will need it. So, **clone me!**
+Acesse *https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository* para entender o que deve ser feito para criar/clonar um repositório. Para este exercício, você deverá clonar este repositório. Suas credenciais de acesso serão exigidas.
 
-You are able to change this project. Maybe we are going to go back to this project later. For now just try to figure it out what is going on.
+Após clonar, explore o projeto para entender sua arquitetura.
 
-## Docker
+Atenção, crie um arquivo .env contendo a variável de ambiente **SESSION_SECRET_KEY_DEV** e uma string hexadecimal como valor. Use o *python secrets*.
 
-- To start with, create a docker hub account. You are going to use it when you share your images. Go to *https://hub.docker.com/* and create your free account.
+## (2) Interagindo com a aplicação localmente
 
-- Install docker on local (virtual) machine. See *https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository*.
+Para executar a aplicação, temos que colocar o Flask para execução em conjunto com a aplicação.
 
-- Run the image that is already shared:
-   - sudo docker run -p 5000:5000 -d gustavoafernandes/prof-gus-flask-docker
-- The most used Docker commands that we're going to use are:
-   - sudo docker image build -t <image-name>
+- No diretório do projeto, digite:
+   1. Carregue o ambiente desta aplicação: `source env/bin/activate`.
+   2. Instale os pacotes necessários: `pip install -r requirements.txt`
+   3. Execute *app.py*
+   4. Acesse o endereço *localhost* na porta 5000 (localhost:5000) para visualizar a aplicação.
+
+- Para desativar o ambiente, digite `deactivate`
+
+## (3) Docker
+
+- Crie uma conta no docker-hub. Usaremos essa conta para compartilharmos imagens docker. Acesse *https://hub.docker.com/*.
+
+- Instale o docker em sua máquina local (virtual). Siga *https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository*.
+
+- Os comandos Docker que mais usaremos são:
+   - sudo docker image build -t image-name .
    - sudo docker image ls
-   - sudo docker container ls
-   - sudo docker run [OPTIONS] <image-name or image-id>
-   - sudo docker stop (start) <image-name or image-id>
-   - sudo docker rm <image-name or image-id>
-   - sudo docker image rm <image-name or image-id>
+   - sudo docker container ls -a
+   - sudo docker container ps
+   - sudo docker run [OPTIONS] image-name (ou image-id)
+   - sudo docker stop (ou start) image-name (ou image-id)
+   - sudo docker rm image-name (ou image-id)
+   - sudo docker image rm image-name (ou image-id)
 
-- Get familiar with Docker. We are going to use it a lot.
+- Para esta prática, iremos construir uma imagem, salvá-la em nosso repositorio docker hub, e em seguida usar essa imagem para rodar em um conteiner.
+   1. `sudo docker image build -t flask-blog-app .`
+   2. Certifique que a imagem está criada.
+   3. Execute um conteiner para essa imagem. `sudo docker run -p 5000:5000 -d flask-blog-app`
+   4. Certifique que o conteiner está em execução.
+   5. Acesse o endereço *localhost* na porta 5000 (localhost:5000) para visualizar a aplicação.
 
-That's all folks. :rocket:
+- Salvando imagem no docker hub.
+   1. Acesse o docker hub para criar um repositório.
+   2. Autenticar no docker hub na máquina local (virtual): `sudo docker login`
+   3. Criar uma *tag* para a imagem docker de referência: `sudo docker tag flask-blog-app <your-docker-hub-username>/<repository-name>`
+   4. Publicar imagem: `sudo docker push <your-docker-hub-username>/<repository-name>`
+
+- Para usar a sua imagem, basta executar na sua máquina local (virtual):
+   `sudo docker run -p 5000:5000 -d <your-docker-hub-username>/<repository-name>`
+
+- Pratique e estude bastante. :rocket:

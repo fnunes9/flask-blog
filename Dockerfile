@@ -13,9 +13,9 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 # create DB
-#RUN python init_db.py
+#RUN python3 init_db.py
 
-#CMD python app.py
-ENTRYPOINT ["python"]
+# specified network ports at runtime
+EXPOSE 5000
 
-CMD ["app.py"]
+CMD ["python3", "app.py"]
