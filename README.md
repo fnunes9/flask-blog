@@ -26,13 +26,20 @@ Acesse *https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository* para
 
 Após clonar, explore o projeto para entender sua arquitetura.
 
-Atenção, crie um arquivo .env contendo a variável de ambiente **SESSION_SECRET_KEY_DEV** e uma string hexadecimal como valor. Use o *python secrets*.
+Atenção, prepare o projeto para compilação/execução. No diretório do projeto:
+
+1. crie o banco de dados - executar init_db.py: `python3 init_db.py`
+2. crie um ambiente virtual: `python3 -m venv env`. Esse comando cria um ambiente chamado *env*. Pesquise sobre ambientes virtuais no python.
+3. crie um arquivo .env contendo a variável de ambiente **SESSION_SECRET_KEY_DEV** e uma string hexadecimal como valor. Use o *python secrets*. Este arquivo terá somente uma linha da seguinte maneira *SESSION_SECRET_KEY_DEV='string-gerada-pelo-python-secrets'*.
+4. crie o arquivo *.config.py* e carregue o *.env*. Este arquivo conterá a linha de import `from dotenv import load_dotenv` e a linha `load_dotenv()`.
+
+Com isso o projeto é executável.
 
 ## (2) Interagindo com a aplicação localmente
 
 Para executar a aplicação, temos que colocar o Flask para execução em conjunto com a aplicação.
 
-- No diretório do projeto, digite:
+- No diretório do projeto:
    1. Carregue o ambiente desta aplicação: `source env/bin/activate`.
    2. Instale os pacotes necessários: `pip install -r requirements.txt`
    3. Execute *app.py*
